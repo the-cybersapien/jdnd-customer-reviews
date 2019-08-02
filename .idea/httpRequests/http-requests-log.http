@@ -1,0 +1,7 @@
+GET http://127.0.0.1:8080/actuator
+Accept: application/vnd.spring-boot.actuator.v2+json
+
+<> 2019-08-01T012115.200.json
+
+###
+
