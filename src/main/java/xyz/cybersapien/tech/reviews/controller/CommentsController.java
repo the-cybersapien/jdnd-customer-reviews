@@ -1,5 +1,6 @@
 package xyz.cybersapien.tech.reviews.controller;
 
+import org.springframework.validation.annotation.Validated;
 import xyz.cybersapien.tech.reviews.entity.Comment;
 import xyz.cybersapien.tech.reviews.entity.Review;
 import xyz.cybersapien.tech.reviews.repository.CommentRepository;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 import static xyz.cybersapien.tech.reviews.utils.ReviewUtils.findReviewById;
@@ -16,6 +18,7 @@ import static xyz.cybersapien.tech.reviews.utils.ReviewUtils.findReviewById;
  * Spring REST controller for working with comment entity.
  */
 @RestController
+@Validated
 @RequestMapping("/comments")
 public class CommentsController {
 
@@ -37,7 +40,7 @@ public class CommentsController {
     @RequestMapping(value = "/reviews/{reviewId}", method = RequestMethod.POST)
     public ResponseEntity<Comment> createCommentForReview(
             @PathVariable("reviewId") Integer reviewId,
-            @RequestBody Comment comment
+            @Valid @RequestBody Comment comment
     ) {
         Review review = findReviewById(reviewRepository, reviewId);
         comment.setReview(review);

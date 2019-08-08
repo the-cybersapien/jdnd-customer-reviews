@@ -1,19 +1,22 @@
 package xyz.cybersapien.tech.reviews.controller;
 
-import xyz.cybersapien.tech.reviews.entity.Product;
-import xyz.cybersapien.tech.reviews.repository.ProductRepository;
-import xyz.cybersapien.tech.reviews.utils.ProductUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import xyz.cybersapien.tech.reviews.entity.Product;
+import xyz.cybersapien.tech.reviews.repository.ProductRepository;
+import xyz.cybersapien.tech.reviews.utils.ProductUtils;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
  * Spring REST controller for working with product entity.
  */
 @RestController
+@Validated
 @RequestMapping("/products")
 public class ProductsController {
 
@@ -28,7 +31,7 @@ public class ProductsController {
      */
     @PostMapping(value = "/")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createProduct(@RequestBody Product product) {
+    public void createProduct(@Valid @RequestBody Product product) {
         productRepository.save(product);
     }
 

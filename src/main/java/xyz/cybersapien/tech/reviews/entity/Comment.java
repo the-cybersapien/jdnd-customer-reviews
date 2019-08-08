@@ -1,6 +1,7 @@
 package xyz.cybersapien.tech.reviews.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -10,10 +11,12 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Size(max = 255)
+    @Size(max = 255, min = 10)
+    @NotNull(message = "Title can't be blank for a comment")
     private String title;
 
-    @Size(max = 5000)
+    @Size(max = 5000, min = 1)
+    @NotNull(message = "Text can't be blank for a comment")
     private String commentText;
 
     @ManyToOne

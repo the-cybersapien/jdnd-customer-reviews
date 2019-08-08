@@ -1,5 +1,6 @@
 package xyz.cybersapien.tech.reviews.controller;
 
+import org.springframework.validation.annotation.Validated;
 import xyz.cybersapien.tech.reviews.entity.Product;
 import xyz.cybersapien.tech.reviews.entity.Review;
 import xyz.cybersapien.tech.reviews.repository.ProductRepository;
@@ -9,12 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
  * Spring REST controller for working with review entity.
  */
 @RestController
+@Validated
 public class ReviewsController {
 
     private final ReviewRepository reviewRepository;
@@ -33,7 +36,7 @@ public class ReviewsController {
      * @return The created review or 404 if product id is not found.
      */
     @PostMapping(value = "/reviews/products/{productId}")
-    public ResponseEntity<?> createReviewForProduct(@PathVariable("productId") Integer productId, @RequestBody Review review) {
+    public ResponseEntity<?> createReviewForProduct(@PathVariable("productId") Integer productId, @Valid @RequestBody Review review) {
         Product product = ProductUtils.findProductById(productRepository, productId);
         review.setProduct(product);
         return ResponseEntity.ok(reviewRepository.save(review));

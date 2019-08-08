@@ -1,6 +1,7 @@
 package xyz.cybersapien.tech.reviews.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -10,10 +11,11 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Size(max = 255)
+    @Size(max = 255, min = 10)
+    @NotEmpty(message = "Please provide a title")
     private String title;
 
-    @Size(max = 10000)
+    @Size(max = 9999, min = 10)
     private String reviewText;
 
     private boolean recommended;
